@@ -176,6 +176,17 @@ def update():
             camera.rotation_z = 180
         if hit.entity == finishBlock_7:
             camera.rotation = (0, 0, 0)
+        if hit.entity == finishBlock_7:
+            destroyLevel07()
+            player.position = (0, 5, 0)
+
+    
+    if ground_8.enabled == True:
+        if hit.entity == block_8_3:
+            player.SPEED = 1
+        if hit.entity == block_8_11:
+            player.SPEED = boostSpeed * 5.5
+            player.jump_height = 1.4
 
 
 
@@ -369,6 +380,39 @@ finishBlock_7.disable()
 
 
 
+# Level08
+
+ground_8 = StartBlock()
+
+block_8_1 = NormalBlock(position = (0, 0, 13))
+block_8_2 = NormalBlock(position = (0, -20, 19))
+block_8_3 = SlowBlock(position = (0, -20, 31))
+block_8_4 = NormalBlock(position = (0, -20, 43))
+block_8_5 = NormalBlock(position = (0, -20, 50))
+block_8_6 = NormalBlock(position = (0, -20, 57))
+block_8_7 = NormalBlock(position = (0, -20, 64))
+block_8_8 = NormalBlock(position = (0, -22, 72))
+block_8_9 = NormalBlock(position = (0, -24, 80))
+block_8_10 = NormalBlock(position = (0, -26, 88))
+block_8_11 = SpeedBlock(position = (0, -26, 98))
+
+finishBlock_8 = EndBlock(position = (0, -10, 350))
+
+block_8_1.disable()
+block_8_2.disable()
+block_8_3.disable()
+block_8_4.disable()
+block_8_5.disable()
+block_8_6.disable()
+block_8_7.disable()
+block_8_8.disable()
+block_8_9.disable()
+block_8_10.disable()
+block_8_11.disable()
+ground_8.disable()
+finishBlock_8.disable()
+
+
 def destroyLevel01():
     block_1.disable()
     block_1_1.disable()
@@ -538,6 +582,40 @@ def destroyLevel06():
     block_7_13.enable()
     ground_7.enable()
     finishBlock_7.enable()
+
+def destroyLevel07():
+    block_7_1.disable()
+    block_7_2.disable()
+    block_7_3.disable()
+    block_7_4.disable()
+    block_7_5.disable()
+    block_7_6.disable()
+    block_7_7.disable()
+    block_7_8.disable()
+    block_7_9.disable()
+    block_7_10.disable()
+    block_7_11.disable()
+    block_7_12.disable()
+    block_7_13.disable()
+    ground_7.disable()
+    finishBlock_7.disable()
+
+    block_8_1.enable()
+    block_8_2.enable()
+    block_8_3.enable()
+    block_8_4.enable()
+    block_8_5.enable()
+    block_8_6.enable()
+    block_8_7.enable()
+    block_8_8.enable()
+    block_8_9.enable()
+    block_8_10.enable()
+    block_8_11.enable()
+    ground_8.enable()
+    finishBlock_8.enable()
+
+    player.SPEED = normalSpeed
+    player.jump_height = normalJump
 
     
 app.run()
