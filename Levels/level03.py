@@ -28,7 +28,7 @@ light.color = color.white
 AmbientLight(color = color.rgba(100, 100, 100, 0.1))
 
 #Level03
-ground_3 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA")
+ground_3 = StartBlock()
 
 block_3_1 = NormalBlock(position = (0, 1, 10))
 block_3_2 = NormalBlock(position = (0, 2, 18))
@@ -44,9 +44,10 @@ block_3_11 = NormalBlock(position = (16, 11, 10))
 block_3_12 = NormalBlock(position = (16, 12, 2))
 block_3_13 = NormalBlock(position = (8, 13, 2))
 block_3_14 = NormalBlock(position = (8, 14, -6))
-block_3_15 = JumpBlock(position = (8, 0, -20))
+block_3_15 = JumpBlock(position = (8, 12, -15))
+block_3_16 = JumpBlock(position = (8, 35, -25))
 
-finishBlock_3 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA", position = (8, 10, -48)) 
+finishBlock_3 = EndBlock(position = (8, 80, -10))
 
 def speed():
     player.SPEED = normalSpeed
@@ -75,7 +76,7 @@ def update():
 
     if hit.entity == block_3_15:
         player.jump_height = 1.2
-    elif hit.entity != block_3_15:
-        player.jump_height = normalJump
+    if hit.entity == block_3_16:
+        player.jump_height = 1.4
 
 app.run()
