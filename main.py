@@ -10,7 +10,6 @@ boostSpeed  = 3
 
 normalJump = 0.3
 
-
 # Player
 player = Player("cube", (0, 10, 0), "box", controls='wasd')
 player.SPEED = normalSpeed
@@ -52,12 +51,14 @@ def update():
         player.position = Vec3(0, 5, 0)
         player.SPEED = normalSpeed
         player.jump_height = normalJump
+        camera.rotation = (0, 0, 0)
 
     # Restart the level
     if held_keys["g"]:
         player.position = Vec3(0, 5, 0)
         player.SPEED = normalSpeed
         player.jump_height = normalJump
+        camera.rotation = (0, 0, 0)
 
     # What entity the player hits
     hit = raycast(player.position, player.down, distance = 2, ignore = [player,])
@@ -110,6 +111,7 @@ def update():
                 player.SPEED = normalSpeed
                 player.jump_height = normalJump
                 player.position = Vec3(0, 5, 0)
+                camera.rotation = (0, 0, 0)
 
 
     if ground_4.enabled == True:
@@ -166,6 +168,15 @@ def update():
             player.SPEED = boostSpeed * 5.5
         if hit.entity == block_6_8:
             player.SPEED = normalSpeed
+        if hit.entity == finishBlock_6:
+            destroyLevel06()
+            player.position = (0, 5, 0)
+
+    if ground_7.enabled == True:
+        if hit.entity == block_7_12:
+            camera.rotation_z = 180
+        if hit.entity == finishBlock_7:
+            camera.rotation = (0, 0, 0)
 
 
 
@@ -267,13 +278,13 @@ block_4_6.disable()
 ground_5 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA")
 
 block_5_1 = NormalBlock(position = (0, 1, 10))
-block_5_2 = NormalBlock(position = (-4, 1, 18), rotation = (0, 0, 30))
-block_5_3 = NormalBlock(position = (4, 1, 26), rotation = (0, 0, -30))
-block_5_4 = NormalBlock(position = (-4, 1, 34), rotation = (0, 0, 30))
-block_5_5 = NormalBlock(position = (4, 1, 42), rotation = (0, 0, -30))
-block_5_6 = NormalBlock(position = (-4, 1, 50), rotation = (0, 0, 30))
-block_5_7 = NormalBlock(position = (4, 1, 58), rotation = (0, 0, -30))
-block_5_8 = NormalBlock(position = (-4, 1, 66), rotation = (0, 0, 30))
+block_5_2 = NormalBlock(position = (-3, 1, 18), rotation = (0, 0, 30))
+block_5_3 = NormalBlock(position = (3, 1, 26), rotation = (0, 0, -30))
+block_5_4 = NormalBlock(position = (-3, 1, 34), rotation = (0, 0, 30))
+block_5_5 = NormalBlock(position = (3, 1, 42), rotation = (0, 0, -30))
+block_5_6 = NormalBlock(position = (-3, 1, 50), rotation = (0, 0, 30))
+block_5_7 = NormalBlock(position = (3, 1, 58), rotation = (0, 0, -30))
+block_5_8 = NormalBlock(position = (-3, 1, 66), rotation = (0, 0, 30))
 
 block_5_9 = SpeedBlock(position = (0, 1, 78))
 block_5_10 = WeirdBlock(position = (0, 1, 95))
@@ -318,6 +329,42 @@ block_6_5.disable()
 block_6_6.disable()
 block_6_7.disable()
 block_6_8.disable()
+
+
+# Level07
+ground_7 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA")
+
+block_7_1 = NormalBlock(position = (0, 1, 10))
+block_7_2 = Wall(position = (0, 3, 15))
+block_7_3 = NormalBlock(position = (0, 1, 20))
+block_7_4 = Wall(position = (0, 3, 25))
+block_7_5 = NormalBlock(position = (0, 1, 30))
+block_7_6 = Wall(position = (0, 3, 35))
+block_7_7 = NormalBlock(position = (0, 1, 40))
+block_7_8 = Wall(position = (0, 3, 45))
+block_7_9 = NormalBlock(position = (0, 1, 50))
+block_7_10 = Wall(position = (0, 3, 55))
+block_7_11 = NormalBlock(position = (0, 1, 60))
+block_7_12 = WeirdBlock(position = (0, 1, 73))
+block_7_13 = NormalBlock(position = (0, 1, 85))
+
+finishBlock_7 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA", position = (0, 1, 95))
+
+block_7_1.disable()
+block_7_2.disable()
+block_7_3.disable()
+block_7_4.disable()
+block_7_5.disable()
+block_7_6.disable()
+block_7_7.disable()
+block_7_8.disable()
+block_7_9.disable()
+block_7_10.disable()
+block_7_11.disable()
+block_7_12.disable()
+block_7_13.disable()
+ground_7.disable()
+finishBlock_7.disable()
 
 
 
@@ -458,6 +505,36 @@ def destroyLevel05():
     block_6_8.enable()
     player.SPEED = normalSpeed
     player.jump_height = normalJump
+
+def destroyLevel06():
+    ground_6.disable()
+    finishBlock_6.disable()
+    block_6_1.disable()
+    block_6_2.disable()
+    block_6_3.disable()
+    block_6_4.disable()
+    block_6_5.disable()
+    block_6_6.disable()
+    block_6_7.disable()
+    block_6_8.disable()
+    player.SPEED = normalSpeed
+    player.jump_height = normalJump
+
+    block_7_1.enable()
+    block_7_2.enable()
+    block_7_3.enable()
+    block_7_4.enable()
+    block_7_5.enable()
+    block_7_6.enable()
+    block_7_7.enable()
+    block_7_8.enable()
+    block_7_9.enable()
+    block_7_10.enable()
+    block_7_11.enable()
+    block_7_12.enable()
+    block_7_13.enable()
+    ground_7.enable()
+    finishBlock_7.enable()
 
     
 app.run()
