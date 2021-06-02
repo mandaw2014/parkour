@@ -102,8 +102,8 @@ def update():
     if ground_3.enabled == True:
         if hit.entity == block_3_15:
             player.jump_height = 1.2
-        elif hit.entity != block_3_15:
-            player.jump_height = normalJump
+        if hit.entity == block_3_16:
+            player.jump_height = 1.4
 
         if finishBlock_3.enabled == True:
             if hit.entity == finishBlock_3:
@@ -111,7 +111,6 @@ def update():
                 player.SPEED = normalSpeed
                 player.jump_height = normalJump
                 player.position = Vec3(0, 5, 0)
-                camera.rotation = (0, 0, 0)
 
 
     if ground_4.enabled == True:
@@ -223,9 +222,10 @@ block_3_11 = NormalBlock(position = (16, 11, 10))
 block_3_12 = NormalBlock(position = (16, 12, 2))
 block_3_13 = NormalBlock(position = (8, 13, 2))
 block_3_14 = NormalBlock(position = (8, 14, -6))
-block_3_15 = JumpBlock(position = (8, 0, -20))
+block_3_15 = JumpBlock(position = (8, 12, -15))
+block_3_16 = JumpBlock(position = (8, 35, -25))
 
-finishBlock_3 = EndBlock(position = (8, 10, -48))
+finishBlock_3 = EndBlock(position = (8, 80, -10))
 
 block_3_1.disable()
 block_3_2.disable()
@@ -242,6 +242,7 @@ block_3_12.disable()
 block_3_13.disable()
 block_3_14.disable()
 block_3_15.disable()
+block_3_16.disable()
 ground_3.disable()
 finishBlock_3.disable()
 
@@ -421,6 +422,7 @@ def destroyLevel02():
     block_3_13.enable()
     block_3_14.enable()
     block_3_15.enable()
+    block_3_16.enable()
     player.SPEED = normalSpeed
     player.jump_height = normalJump
 
@@ -440,6 +442,7 @@ def destroyLevel03():
     block_3_13.disable()
     block_3_14.disable()
     block_3_15.disable()
+    block_3_16.disable()
     ground_3.disable()
     finishBlock_3.disable()
 
