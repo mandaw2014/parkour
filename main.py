@@ -35,8 +35,8 @@ block_1_6 = JumpBlock(position = (17, 2, 24))
 block_1_7 = NormalBlock(position = (25, 10, 24))
 block_1_8 = SpeedBlock(position = (25, 10, 33))
 
-ground_1 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA")
-finishBlock_1 = Entity(model = "cube", scale_x = 5, scale_z = 5, collider = "box", texture = "white_cube", color = "#CACACA", position = (25, 10, 45))
+ground_1 = StartBlock()
+finishBlock_1 = EndBlock(position = (25, 10, 50))
 
 def speed():
     player.SPEED = normalSpeed
@@ -183,8 +183,8 @@ def update():
 
 #Level02
 
-ground_2 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA")
-finishBlock_2 = Entity(model = "cube", scale_x = 5, scale_z = 5, collider = "box", texture = "white_cube", color = "#CACACA", position = (0, 11, 67))
+ground_2 = StartBlock()
+finishBlock_2 = EndBlock(position = (0, 11, 73))
 
 block_2 = NormalBlock(position = (0, 1, 9))
 block_2_1 = NormalBlock(position = (0, 2, 15))
@@ -207,7 +207,7 @@ block_2_6.disable()
 
 
 #Level03
-ground_3 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA")
+ground_3 = StartBlock()
 
 block_3_1 = NormalBlock(position = (0, 1, 10))
 block_3_2 = NormalBlock(position = (0, 2, 18))
@@ -225,7 +225,7 @@ block_3_13 = NormalBlock(position = (8, 13, 2))
 block_3_14 = NormalBlock(position = (8, 14, -6))
 block_3_15 = JumpBlock(position = (8, 0, -20))
 
-finishBlock_3 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA", position = (8, 10, -48)) 
+finishBlock_3 = EndBlock(position = (8, 10, -48))
 
 block_3_1.disable()
 block_3_2.disable()
@@ -250,7 +250,7 @@ finishBlock_3.disable()
 
 #Level04
 
-ground_4 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA")
+ground_4 = StartBlock()
 
 block_4_1 = NormalBlock(position = (0, 1, 12))
 block_4_2 = NormalBlock(position = (0, 2, 20))
@@ -259,7 +259,7 @@ block_4_4 = NormalBlock(position = (0, 50, 60))
 block_4_5 = SpeedBlock(position = (0, 50, 93), scale = (3, 0.5, 50))
 block_4_6 = JumpBlock(position = (0, 15, 163))
 
-finishBlock_4 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA", position = (0, 20, 240))
+finishBlock_4 = EndBlock(position = (0, 20, 240))
 
 ground_4.disable()
 finishBlock_4.disable()
@@ -275,7 +275,7 @@ block_4_6.disable()
 
 #Level05
 
-ground_5 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA")
+ground_5 = StartBlock()
 
 block_5_1 = NormalBlock(position = (0, 1, 10))
 block_5_2 = NormalBlock(position = (-3, 1, 18), rotation = (0, 0, 30))
@@ -289,7 +289,7 @@ block_5_8 = NormalBlock(position = (-3, 1, 66), rotation = (0, 0, 30))
 block_5_9 = SpeedBlock(position = (0, 1, 78))
 block_5_10 = WeirdBlock(position = (0, 1, 95))
 
-finishBlock_5 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA", position = (0, 1, 112))
+finishBlock_5 = EndBlock(position = (0, 1, 112))
 
 block_5_1.disable()
 block_5_2.disable()
@@ -307,7 +307,7 @@ finishBlock_5.disable()
 
 #Level06
 
-ground_6 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA")
+ground_6 = StartBlock()
 block_6_1 = SpeedBlock(position = (0, 0, 13))
 block_6_2 = SpeedBlock(position = (0, 0, 32))
 block_6_3 = SpeedBlock(position = (0, 0, 58))
@@ -317,7 +317,7 @@ block_6_6 = SpeedBlock(position = (0, 0, 180))
 block_6_7 = SpeedBlock(position = (0, 0, 240))
 block_6_8 = SlowBlock(position = (0, 0, 300))
 
-finishBlock_6 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA", position = (0, 0, 315))
+finishBlock_6 = EndBlock(position = (0, 0, 315))
 
 ground_6.disable()
 finishBlock_6.disable()
@@ -332,7 +332,7 @@ block_6_8.disable()
 
 
 # Level07
-ground_7 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA")
+ground_7 = StartBlock()
 
 block_7_1 = NormalBlock(position = (0, 1, 10))
 block_7_2 = Wall(position = (0, 3, 15))
@@ -348,7 +348,7 @@ block_7_11 = NormalBlock(position = (0, 1, 60))
 block_7_12 = WeirdBlock(position = (0, 1, 73))
 block_7_13 = NormalBlock(position = (0, 1, 85))
 
-finishBlock_7 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA", position = (0, 1, 95))
+finishBlock_7 = EndBlock(position = (0, 1, 95))
 
 block_7_1.disable()
 block_7_2.disable()
