@@ -72,6 +72,27 @@ class Wall(Entity):
             rotation = (0, 0, 90)
         )
 
+class MovingBlock(Entity):
+    def __init__(self, position = (0, 0, 0)):
+        super().__init__(
+            model = "cube",
+            scale = Vec3(3, 0.8, 3),
+            color = "#2D49FB",
+            collider = "box",
+            texture = "white_cube",
+            position = position,
+        )
+
+class FakeBlock(Entity):
+    def __init__(self, position = (0, 0, 0)):
+        super().__init__(
+            model = "cube",
+            scale = Vec3(3, 0.8, 3),
+            color = "#25B701",
+            texture = "white_cube",
+            position = position,
+        )
+
 class StartBlock(Entity):
     def __init__(self, position = (0, 0, 0)):
         super().__init__(
