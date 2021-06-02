@@ -49,6 +49,7 @@ class SlowBlock(Entity):
             position = position,
         )
 
+# Weird block class
 class WeirdBlock(Entity):
     def __init__(self, position = (0, 0, 0)):
         super().__init__(
@@ -58,4 +59,17 @@ class WeirdBlock(Entity):
             collider = "box",
             texture = "white_cube",
             position = position,
+        )
+
+# Wall class
+class Wall(Entity):
+    def __init__(self, position = (0, 0, 0)):
+        super().__init__(
+            model = "cube",
+            scale = (5, 4, 1),
+            color = "#AFFF3C",
+            collider = "box",
+            texture = "white_cube",
+            position = position,
+            rotation = (0, 0, 90)
         )
