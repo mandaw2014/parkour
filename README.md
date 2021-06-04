@@ -26,4 +26,4 @@ G - Restart The Level
 ![screenshot5](https://user-images.githubusercontent.com/77012627/120117846-2c206b80-c187-11eb-881b-59571e27cdec.png)
 
 
-Make sure to check out the collaboration version here ![link](https://github.com/mandaw2014/parkour-collab)
+Make sure to check out the collaboration version here: https://github.com/mandaw2014/parkour-collab
