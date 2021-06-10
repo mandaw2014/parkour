@@ -1,9 +1,13 @@
 from ursina import *
 from player import Player
 from block import *
+# from main_menu import MainMenu
 
 # App/Window
 app = Ursina()
+
+window.title = "Parkour"
+window.fps_counter.disable()
 
 normalSpeed = 2
 boostSpeed  = 3
@@ -15,7 +19,110 @@ player = Player("cube", (0, 10, 0), "box", controls='wasd')
 player.SPEED = normalSpeed
 player.jump_height = normalJump
 
-# Sky
+# Main Menu
+class MainMenu(Entity):
+    def __init__(self, **kwargs):
+        super().__init__(parent = camera.ui, ignore_paused = True)
+
+        self.main_menu = Entity(parent = self, enabled = True)
+        self.options_menu = Entity(parent = self, enabled = False)
+        self.controls_menu = Entity(parent = self, enabled = False)
+
+        Text("MAIN MENU", parent = self.main_menu, y = 0.4, x = 0, origin = (0,0))
+
+        def quit_game():
+            quit()
+
+        def options_menu_btn():
+            self.options_menu.enable()
+            self.main_menu.disable()
+        
+        def controls_btn():
+            self.main_menu.disable()
+            self.controls_menu.enable()
+
+        def start():
+            mouse.locked = True
+            player.enable()
+            m.disable()
+
+        ButtonList(button_dict = {
+            "Start": Func(start),
+            "Options": Func(options_menu_btn),
+            "Controls": Func(controls_btn),
+            "Quit": Func(quit_game)
+        }, y = 0, parent = self.main_menu)
+
+        Text("OPTIONS MENU", parent = self.options_menu, y = 0.4, x = 0, origin=(0, 0))
+
+        def options_back_btn_action():
+            self.main_menu.enable()
+            self.options_menu.disable()
+
+        def controls_back_btn_action():
+            self.controls_menu.disable()
+            self.main_menu.enable()
+
+        Button("Back", parent = self.options_menu, y = -0.3, scale = (0.1,0.05), color = rgb(50,50,50),
+               on_click = options_back_btn_action)
+
+        Text("CONTROLS", parent = self.controls_menu, y = 0.4, x = 0, origin = (0, 0))
+        Text("WASD - Move", parent = self.controls_menu, y = 0.05, x = 0, origin = (0, 0))
+        Text("SPACE - Jump", parent = self.controls_menu, y = 0, x = 0, origin = (0, 0))
+        Text("ESCAPE - Pause", parent = self.controls_menu, y = -0.05, x = 0, origin = (0, 0))
+        Text("G - Restart The Level", parent = self.controls_menu, y = -0.1, x = 0, origin = (0, 0))
+
+        Button("Back", parent = self.controls_menu, y = -0.3, scale = (0.1,0.05), color = rgb(50,50,50),
+               on_click = controls_back_btn_action)
+
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
+    def input(self, key):
+        if self.main_menu.enabled:
+            if key == "escape":
+                # Close app
+                quit()
+
+        if self.options_menu.enabled:
+            if key == "escape":
+                self.main_menu.enable()
+                self.options_menu.disable()
+
+        if self.controls_menu.enabled:
+            if key == "escape":
+                self.main_menu.enable()
+                self.controls_menu.disable()
+
+    def update(self):
+        pass
+
+class PauseMenu(Entity):
+    def __init__(self, **kwargs):
+        super().__init__(parent = camera.ui, ignore_paused = True)
+
+        self.pause_menu = Entity(parent = self, enabled = True)
+
+        def resume():
+            self.pause_menu.disable()
+            player.enable()
+            mouse.locked = True
+        def reset():
+            player.position = (0, 2, 0)
+            self.pause_menu.disable()
+            player.enable()
+            mouse.locked = True
+
+        ButtonList(button_dict = {
+            "Resume": Func(resume),
+            "Reset": Func(reset),
+            "Quit": Func(quit)
+        }, y = 0, parent = self.pause_menu)
+
+m = MainMenu()
+player.disable()
+mouse.locked = False
+
 sky = Sky(texture = "../assets/sky")
 
 # Audio
@@ -30,28 +137,20 @@ light.color = color.white
 
 AmbientLight(color = color.rgba(100, 100, 100, 0.1))
 
-#Level01
-block_1 = NormalBlock(position = (0, 1, 9))
-block_1_1 = NormalBlock(position = (0, 2, 14))
-block_1_2 = NormalBlock(position = (0, 3, 19))
-block_1_3 = NormalBlock(position = (0, 4, 24))
-block_1_4 = NormalBlock(position = (5, 5, 24))
-block_1_5 = NormalBlock(position = (10, 6, 24))
-block_1_6 = JumpBlock(position = (17, 2, 24))
-block_1_7 = NormalBlock(position = (25, 10, 24))
-block_1_8 = SpeedBlock(position = (25, 10, 33))
-
-ground_1 = StartBlock()
-finishBlock_1 = EndBlock(position = (25, 10, 50))
+def start():
+    player.enable()
 
 def speed():
     player.SPEED = normalSpeed
 
-def update():
+def input(key):
     # Escape button quits
-    if held_keys["escape"]:
-        application.quit()
+    if key == "escape":
+        mouse.locked = False
+        player.disable()
+        p = PauseMenu()
 
+def update():
     # Stops the player from falling forever
     if player.position.y <= -50:
         player.position = Vec3(0, 5, 0)
@@ -69,20 +168,20 @@ def update():
     # What entity the player hits
     hit = raycast(player.position, player.down, distance = 2, ignore = [player,])
 
-    # Jump sound effect
-    if hit.hit:
-        jump.play()
+    # # Jump sound effect
+    # if hit.hit:
+    #     jump.play()
 
-    if not hit.hit:
-        land.play()
+    # if not hit.hit:
+    #     land.play()
 
     if ground_1.enabled == True:
-        if hit.entity == block_1_6:
+        if hit.entity == block_1_7:
             player.jump_height = 0.7
-        elif hit.entity != block_1_6:
+        elif hit.entity != block_1_7:
             player.jump_height = normalJump
 
-        if hit.entity == block_1_8:
+        if hit.entity == block_1_9:
             player.SPEED = boostSpeed * 1.2
             invoke(speed, delay=3)
 
@@ -235,6 +334,34 @@ def update():
             camera.rotation_z = 0
 
 
+
+# Level01
+
+block_1_1 = NormalBlock(position = (0, 1, 9))
+block_1_2 = NormalBlock(position = (0, 2, 14))
+block_1_3 = NormalBlock(position = (0, 3, 19))
+block_1_4 = NormalBlock(position = (0, 4, 24))
+block_1_5 = NormalBlock(position = (5, 5, 24))
+block_1_6 = NormalBlock(position = (10, 6, 24))
+block_1_7 = JumpBlock(position = (17, 2, 24))
+block_1_8 = NormalBlock(position = (25, 10, 24))
+block_1_9 = SpeedBlock(position = (25, 10, 33))
+
+ground_1 = StartBlock()
+finishBlock_1 = EndBlock(position = (25, 10, 50))
+
+# block_1_1.disable()
+# block_1_2.disable()
+# block_1_3.disable()
+# block_1_4.disable()
+# block_1_5.disable()
+# block_1_6.disable()
+# block_1_7.disable()
+# block_1_8.disable()
+# block_1_9.disable()
+
+# ground_1.disable()
+# finishBlock_1.disable()
 
 
 #Level02
@@ -554,7 +681,6 @@ block_10_25.disable()
 
 
 def destroyLevel01():
-    block_1.disable()
     block_1_1.disable()
     block_1_2.disable()
     block_1_3.disable()
@@ -563,6 +689,7 @@ def destroyLevel01():
     block_1_6.disable()
     block_1_7.disable()
     block_1_8.disable()
+    block_1_9.disable()
     ground_1.disable()
     finishBlock_1.disable()
 
