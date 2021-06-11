@@ -192,14 +192,14 @@ def update():
             player.jump_height = normalJump
     
     if ground_2.enabled == True:
-        if block_2_2.enabled == True:
-            if hit.entity == block_2_2:
+        if block_2_3.enabled == True:
+            if hit.entity == block_2_3:
                 player.jump_height = 1.2
-            elif hit.entity != block_2_2:
+            elif hit.entity != block_2_3:
                 player.jump_height = normalJump
 
-        if block_2_5.enabled == True:
-            if hit.entity == block_2_5:
+        if block_2_6.enabled == True:
+            if hit.entity == block_2_6:
                 player.SPEED = boostSpeed * 1.5
                 invoke(speed, delay=3)
 
@@ -270,13 +270,13 @@ def update():
         if hit.entity == block_6_3:
             player.SPEED = boostSpeed * 2.5
         if hit.entity == block_6_4:
-            player.SPEED = boostSpeed * 3
+            player.SPEED = boostSpeed * 3.3
         if hit.entity == block_6_5:
-            player.SPEED = boostSpeed * 4.5
+            player.SPEED = boostSpeed * 4
         if hit.entity == block_6_6:
             player.SPEED = boostSpeed * 5
         if hit.entity == block_6_7:
-            player.SPEED = boostSpeed * 5.5
+            player.SPEED = boostSpeed * 5.3
         if hit.entity == block_6_8:
             player.SPEED = normalSpeed
         if hit.entity == finishBlock_6:
@@ -337,18 +337,18 @@ def update():
 
 # Level01
 
-block_1_1 = NormalBlock(position = (0, 1, 9))
-block_1_2 = NormalBlock(position = (0, 2, 14))
-block_1_3 = NormalBlock(position = (0, 3, 19))
-block_1_4 = NormalBlock(position = (0, 4, 24))
-block_1_5 = NormalBlock(position = (5, 5, 24))
-block_1_6 = NormalBlock(position = (10, 6, 24))
-block_1_7 = JumpBlock(position = (17, 2, 24))
-block_1_8 = NormalBlock(position = (25, 10, 24))
-block_1_9 = SpeedBlock(position = (25, 10, 33))
+block_1_1 = NormalBlock(position = (0, 1, 12))
+block_1_2 = NormalBlock(position = (0, 2, 20))
+block_1_3 = NormalBlock(position = (0, 3, 28))
+block_1_4 = NormalBlock(position = (0, 4, 36))
+block_1_5 = NormalBlock(position = (8, 5, 36))
+block_1_6 = NormalBlock(position = (16, 6, 36))
+block_1_7 = JumpBlock(position = (24, 2, 36))
+block_1_8 = NormalBlock(position = (32, 10, 36))
+block_1_9 = SpeedBlock(position = (32, 10, 46))
 
 ground_1 = StartBlock()
-finishBlock_1 = EndBlock(position = (25, 10, 50))
+finishBlock_1 = EndBlock(position = (32, 10, 62))
 
 # block_1_1.disable()
 # block_1_2.disable()
@@ -367,25 +367,26 @@ finishBlock_1 = EndBlock(position = (25, 10, 50))
 #Level02
 
 ground_2 = StartBlock()
-finishBlock_2 = EndBlock(position = (0, 11, 73))
 
-block_2 = NormalBlock(position = (0, 1, 9))
-block_2_1 = NormalBlock(position = (0, 2, 15))
-block_2_2 = JumpBlock(position = (0, -20, 25))
-block_2_3 = NormalBlock(position = (0, 10, 30))
-block_2_4 = NormalBlock(position = (0, 10, 37))
-block_2_5 = SpeedBlock(position = (0, 10, 45))
-block_2_6 = NormalBlock(position = (0, 11, 60))
+block_2_1 = NormalBlock(position = (0, 1, 12))
+block_2_2 = NormalBlock(position = (0, 2, 20))
+block_2_3 = JumpBlock(position = (0, -20, 30))
+block_2_4 = NormalBlock(position = (0, 10, 42))
+block_2_5 = NormalBlock(position = (0, 10, 50))
+block_2_6 = SpeedBlock(position = (0, 10, 62))
+block_2_7 = NormalBlock(position = (0, 11, 74))
+
+finishBlock_2 = EndBlock(position = (0, 11, 88))
 
 ground_2.disable()
 finishBlock_2.disable()
-block_2.disable()
 block_2_1.disable()
 block_2_2.disable()
 block_2_3.disable()
 block_2_4.disable()
 block_2_5.disable()
 block_2_6.disable()
+block_2_7.disable()
 
 
 
@@ -695,24 +696,25 @@ def destroyLevel01():
 
     ground_2.enable()
     finishBlock_2.enable()
-    block_2.enable()
     block_2_1.enable()
     block_2_2.enable()
     block_2_3.enable()
     block_2_4.enable()
     block_2_5.enable()
     block_2_6.enable()
+    block_2_7.enable()
     player.SPEED = normalSpeed
     player.jump_height = normalJump
 
 def destroyLevel02():
-    block_2.disable()
     block_2_1.disable()
     block_2_2.disable()
     block_2_3.disable()
     block_2_4.disable()
     block_2_5.disable()
     block_2_6.disable()
+    block_2_7.disable()
+
     ground_2.disable()
     finishBlock_2.disable()
 
