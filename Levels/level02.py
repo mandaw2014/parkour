@@ -27,16 +27,18 @@ light.color = color.white
 AmbientLight(color = color.rgba(100, 100, 100, 0.1))
 
 # Level 02 platforms
-ground_2 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA")
-finishBlock_2 = Entity(model = "cube", scale_x = 5, scale_z = 5, collider = "box", texture = "white_cube", color = "#CACACA", position = (0, 11, 67))
 
-block_2 = NormalBlock(position = (0, 1, 9))
-block_2_1 = NormalBlock(position = (0, 2, 15))
-block_2_2 = JumpBlock(position = (0, -20, 25))
-block_2_3 = NormalBlock(position = (0, 10, 30))
-block_2_4 = NormalBlock(position = (0, 10, 37))
-block_2_5 = SpeedBlock(position = (0, 10, 45))
-block_2_6 = NormalBlock(position = (0, 11, 60))
+ground_2 = StartBlock()
+
+block_2_1 = NormalBlock(position = (0, 1, 12))
+block_2_2 = NormalBlock(position = (0, 2, 20))
+block_2_3 = JumpBlock(position = (0, -20, 30))
+block_2_4 = NormalBlock(position = (0, 10, 42))
+block_2_5 = NormalBlock(position = (0, 10, 50))
+block_2_6 = SpeedBlock(position = (0, 10, 62))
+block_2_7 = NormalBlock(position = (0, 11, 74))
+
+finishBlock_2 = EndBlock(position = (0, 11, 88))
 
 def speed():
     player.SPEED = normalSpeed
@@ -62,13 +64,13 @@ def update():
     hit = raycast(player.position, player.down, distance = 2, ignore = [player,])
     
     if block_2_2.enabled == True:
-        if hit.entity == block_2_2:
+        if hit.entity == block_2_3:
             player.jump_height = 1.2
-        elif hit.entity != block_2_2:
+        elif hit.entity != block_2_3:
             player.jump_height = normalJump
 
-    if block_2_5.enabled == True:
-        if hit.entity == block_2_5:
+    if block_2_6.enabled == True:
+        if hit.entity == block_2_6:
             player.SPEED = boostSpeed * 1.5
             invoke(speed, delay=3)
 
