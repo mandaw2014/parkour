@@ -27,7 +27,7 @@ light.color = color.white
 AmbientLight(color = color.rgba(100, 100, 100, 0.1))
 
 # Level 03 platforms
-ground_6 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA")
+ground_6 = StartBlock()
 block_6_1 = SpeedBlock(position = (0, 0, 13))
 block_6_2 = SpeedBlock(position = (0, 0, 32))
 block_6_3 = SpeedBlock(position = (0, 0, 58))
@@ -37,7 +37,7 @@ block_6_6 = SpeedBlock(position = (0, 0, 180))
 block_6_7 = SpeedBlock(position = (0, 0, 240))
 block_6_8 = SlowBlock(position = (0, 0, 300))
 
-finishBlock_6 = Entity(model = "cube", scale_x = 10, scale_z = 10, collider = "box", texture = "white_cube", color = "#CACACA", position = (0, 0, 315))
+finishBlock_6 = EndBlock(position = (0, 0, 315))
 
 def speed():
     player.SPEED = normalSpeed
@@ -69,13 +69,13 @@ def update():
     if hit.entity == block_6_3:
         player.SPEED = boostSpeed * 2.5
     if hit.entity == block_6_4:
-        player.SPEED = boostSpeed * 3
+        player.SPEED = boostSpeed * 3.3
     if hit.entity == block_6_5:
-        player.SPEED = boostSpeed * 4.5
+        player.SPEED = boostSpeed * 4
     if hit.entity == block_6_6:
         player.SPEED = boostSpeed * 5
     if hit.entity == block_6_7:
-        player.SPEED = boostSpeed * 5.5
+        player.SPEED = boostSpeed * 5.3
     if hit.entity == block_6_8:
         player.SPEED = normalSpeed
 
