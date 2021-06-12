@@ -1,6 +1,6 @@
 from ursina import *
 from player import Player
-from block import * 
+from block import *
 
 application.development_mode = True
 
@@ -37,7 +37,7 @@ class MainMenu(Entity):
             mouse.locked = True
             self.main_menu.disable()
 
-        title = Entity(model = "quad", scale = (0.65, 0.2, 0.2), texture = "assets/parkour_logo_4", parent = self.main_menu, y = 0.3)
+        title = Entity(model = "quad", scale = (0.8, 0.2, 0.2), texture = "assets/parkour_logo_4", parent = self.main_menu, y = 0.3)
 
         start_button = Button(text = "S t a r t - G a m e", color = color.black, scale_y = 0.1, scale_x = 0.3, y = -0.1, parent = self.main_menu)
         quit_button = Button(text = "Q u i t", color = color.black, scale_y = 0.1, scale_x = 0.3, y = -0.22, parent = self.main_menu)
@@ -61,9 +61,9 @@ class PauseMenu(Entity):
             mouse.locked = True
             self.pause_menu.disable()
 
-        resume_button = Button(text = "R e s u m e", color = color.black, scale_y = 0.1, scale_x = 0.3, y = -0.08, parent = self.pause_menu)
-        reset_button = Button(text = "R e s e t", color = color.black, scale_y = 0.1, scale_x = 0.3, y = -0.2, parent = self.pause_menu)
-        quit_button = Button(text = "Q u i t", color = color.black, scale_y = 0.1, scale_x = 0.3, y = -0.32, parent = self.pause_menu)
+        resume_button = Button(text = "R e s u m e", color = color.black, scale_y = 0.1, scale_x = 0.3, y = 0.12, parent = self.pause_menu)
+        reset_button = Button(text = "R e s e t", color = color.black, scale_y = 0.1, scale_x = 0.3, y = 0, parent = self.pause_menu)
+        quit_button = Button(text = "Q u i t", color = color.black, scale_y = 0.1, scale_x = 0.3, y = -0.12, parent = self.pause_menu)
         quit_button.on_click = application.quit
         reset_button.on_click = Func(reset)
         resume_button.on_click = Func(resume)
