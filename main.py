@@ -1,6 +1,6 @@
 from ursina import *
 from player import Player
-from block import *
+from block import * 
 
 application.development_mode = True
 
