@@ -16,13 +16,14 @@ from Levels.level10 import Level10
 from main_menu import MainMenu
 from pause_menu import PauseMenu
 
+application.development_mode = True
+
 # App/Window
-app = Ursina()
+app = Ursina(borderless = False)
 
 window.title = "Parkour"
 window.fps_counter.disable()
 
-window.borderless = False
 window.exit_button = False
 
 normalSpeed = 2
@@ -87,6 +88,8 @@ def input(key):
     if key == "escape":
         mouse.locked = False
         player.disable()
+        player.time_running = False
+        player.time.disable()
         
         p = PauseMenu()
         p.player = player
@@ -145,6 +148,9 @@ def update():
         level09.disable()
         reset_player()
     if ray.entity == level10.finishBlock_10:
+        m.main_menu.enable()
+        player.disable()
+        mouse.locked = False
         level01.enable()
         level10.disable()
         reset_player()
