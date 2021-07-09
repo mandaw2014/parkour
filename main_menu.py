@@ -13,6 +13,7 @@ class MainMenu(Entity):
             self.player.enable()
             mouse.locked = True
             self.main_menu.disable()
+            self.player.time_running = True
 
         title = Entity(model = "quad", scale = (0.8, 0.2, 0.2), texture = "assets/parkour_logo_4", parent = self.main_menu, y = 0.3)
 
