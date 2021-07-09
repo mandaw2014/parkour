@@ -1,7 +1,6 @@
 from ursina import *
 import math
 
-
 class Player(Entity):
     def __init__(self, model, position, collider, scale=(1, 1, 1), SPEED=3, velocity=(0, 0, 0), MAXJUMP=1, gravity=1,controls = "wasd", **kwargs):
 
@@ -21,13 +20,28 @@ class Player(Entity):
         self.slope = 40
         self.controls = controls
         self.sensibility = 70
+
+        self.time_running = False
+        self.count = 0.0
+        self.time = Text(text = str(round(self.count)), origin = (0, 0), size = 0.05, position = Vec2(-0.73, 0.44))
+        self.time.disable()
+
         for key, value in kwargs.items():
             try:
                 setattr(self, key, value)
             except:
                 print(key, value)
 
+    def jump(self):
+        if self.jump_count < self.MAXJUMP:
+            self.velocity_y = self.jump_height
+            self.jump_count += 1
+
     def update(self):
+        if self.time_running:
+            self.time.enable()
+            self.count += time.dt
+            self.time.text = str(round(self.count))
 
         y_movement = self.velocity_y
 
@@ -134,44 +148,4 @@ class Player(Entity):
 
     def input(self, key):
         if key == 'space':
-            if self.jump_count < self.MAXJUMP:
-                self.velocity_y = self.jump_height
-                self.jump_count += 1
-
-
-if __name__ == '__main__':
-    app = Ursina()
-    window.exit_button.input = None
-
-    ROTATING_SPEED = 30
-    SPEED = 3
-
-    player = Player(model='cube', position=(0, 2, 0),
-                    collider='box', SPEED=9, color=color.orange, slope=40)
-
-    ground = Entity(model='plane', scale_x=100, scale_z=100, collider='box', texture="brick",
-                    double_sided=True, texture_scale=(50, 50))
-
-    wall1 = Entity(model="cube", scale=(1, 1, 1), collider='box',
-                   color=color.dark_gray, x=0, z=5, y=0.5)
-    wall2 = Entity(model="cube", scale=(3, 1, 1), collider='box',
-                   color=color.dark_gray, x=8, z=5, y=0.5)
-    roof = Entity(model="cube", scale=(3, 1, 1), collider='box',
-                  color=color.dark_gray, x=3, z=5, y=1.55)
-    spleen = Entity(model="cube", scale=(1, 1, 3), collider='mesh',
-                    color=color.dark_gray, x=3, z=6.5, y=0.5, rotation=(40, 0, 0))
-
-    spleen2 = Entity(model="cube", scale=(1, 1, 3), collider='mesh',
-                     color=color.dark_gray, x=6, z=1.5, y=0.5, rotation=(-40, 90, 0))
-    spleen2.collider.visible = True
-    roof = Entity(model="cube", scale=(3, 1, 1), collider='box',
-                  color=color.dark_gray, x=8.3, z=1.5, y=1.35)
-
-    Sky(texture="skybox", texture_scale=(1, 1, 1))
-
-    light = PointLight(parent=player, position=(0, 1.1, -1.5))
-    light.color = color.white
-
-    AmbientLight(color=color.rgba(100, 100, 100, 0.1))
-
-    app.run()
+            self.jump()
