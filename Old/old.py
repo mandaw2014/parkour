@@ -49,6 +49,10 @@ sky = Sky(texture = "./assets/sky")
 PointLight(parent = camera, position = (0, 10, -1.5), color = color.white)
 AmbientLight(color = color.rgba(100, 100, 100, 0.1))
 
+level01 = Level01()
+level01.enable()
+level01.player = player
+
 level02 = Level02()
 level02.enable()
 level02.player = player
@@ -110,10 +114,10 @@ def update():
 
     ray = raycast(player.position, player.down, distance = 2, ignore = [player, ])
 
-    # if ray.entity == level01.finishBlock_1:
-    #     level02.enable()
-    #     level01.disable()
-    #     reset_player()
+    if ray.entity == level01.finishBlock_1:
+        level02.enable()
+        level01.disable()
+        reset_player()
     if ray.entity == level02.finishBlock_2:
         level03.enable()
         level02.disable()
@@ -150,6 +154,7 @@ def update():
         m.main_menu.enable()
         player.disable()
         mouse.locked = False
+        level01.enable()
         level10.disable()
         reset_player()
 
