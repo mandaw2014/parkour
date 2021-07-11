@@ -2,6 +2,7 @@
 Parkour game made in Python with Ursina Game Engine
 
 Play it here: https://mandaw2014.itch.io/parkour
+
 Join the discord for more news about the game: https://discord.gg/8gVWbs2p
 
 # Controls
