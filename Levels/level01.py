@@ -12,7 +12,7 @@ class Level01(Entity):
     def __init__(self):
         super().__init__()
 
-        self.mountain = Entity(model = "mountain.obj", texture = "mountain.png", collider = "mesh", scale = (100, 100, 100), position = (800, 0, 0))
+        self.mountain = Entity(model = "mountain_level_1.obj", texture = "mountain_level_1.png", collider = "mesh", scale = (100, 100, 100), position = (800, 0, 0))
 
         self.block_1_1 = NormalBlock((881, 10, 9), (0, -141.3, 0))
         self.block_1_2 = NormalBlock((875, 12, 1.5), (0, -142, 0))
@@ -46,9 +46,71 @@ class Level01(Entity):
         self.block_1_24 = NormalBlock((675.4, 138, -120), (0, -179, 0))
         self.block_1_25 = NormalBlock((675.3, 140, -107), (0, -179, 0))
 
-        self.finishBlock = EndBlock((713.4, 122.5, -7), (0, -127, 0))
+        self.finishBlock_1 = EndBlock((713.4, 122.5, -7), (0, -127, 0))
 
         self.player = None
+
+    def disable(self):
+        self.mountain.disable()
+
+        self.block_1_1.disable()
+        self.block_1_2.disable()
+        self.block_1_3.disable()
+        self.block_1_4.disable()
+        self.block_1_5.disable()
+        self.block_1_6.disable()
+        self.block_1_7.disable()
+        self.block_1_8.disable()
+        self.block_1_9.disable()
+        self.block_1_10.disable()
+        self.block_1_11.disable()
+        self.block_1_12.disable()
+        self.block_1_13.disable()
+        self.block_1_14.disable()
+        self.block_1_15.disable()
+        self.block_1_16.disable()
+        self.block_1_17.disable()
+        self.block_1_18.disable()
+        self.block_1_19.disable()
+        self.block_1_20.disable()
+        self.block_1_21.disable()
+        self.block_1_22.disable()
+        self.block_1_23.disable()
+        self.block_1_24.disable()
+        self.block_1_25.disable()
+
+        self.finishBlock_1.disable()
+    
+    def enable(self):
+        self.mountain.enable()
+
+        self.block_1_1.enable()
+        self.block_1_2.enable()
+        self.block_1_3.enable()
+        self.block_1_4.enable()
+        self.block_1_5.enable()
+        self.block_1_6.enable()
+        self.block_1_7.enable()
+        self.block_1_8.enable()
+        self.block_1_9.enable()
+        self.block_1_10.enable()
+        self.block_1_11.enable()
+        self.block_1_12.enable()
+        self.block_1_13.enable()
+        self.block_1_14.enable()
+        self.block_1_15.enable()
+        self.block_1_16.enable()
+        self.block_1_17.enable()
+        self.block_1_18.enable()
+        self.block_1_19.enable()
+        self.block_1_20.enable()
+        self.block_1_21.enable()
+        self.block_1_22.enable()
+        self.block_1_23.enable()
+        self.block_1_24.enable()
+        self.block_1_25.enable()
+
+        self.finishBlock_1.disable()
 
     def speed(self):
         self.player.SPEED = normalSpeed
@@ -59,15 +121,13 @@ class Level01(Entity):
             self.player.position = (888, 10, 18)
             self.player.SPEED = normalSpeed
             self.player.jump_height = normalJump
-            camera.rotation = (0, 0, 0)
 
         # Restart the level
         if held_keys["g"]:
             self.player.position = (888, 10, 18)
             self.player.SPEED = normalSpeed
             self.player.jump_height = normalJump
-            camera.rotation = (0, 0, 0)
-
+            
         # What entity the player hits
         hit = raycast(self.player.position, self.player.down, distance = 2, ignore = [self.player, ])
 
