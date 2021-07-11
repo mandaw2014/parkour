@@ -116,7 +116,7 @@ class EndBlock(Entity):
     def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0)):
         super().__init__(
             model = "cube",
-            scale = (5, 5, 5),
+            scale = (4, 4, 4),
             color = "#2D49FB",
             collider = "box",
             texture = "white_cube",
