@@ -27,6 +27,7 @@ class Player(Entity):
         self.slope = 40
         self.controls = controls
         self.sensibility = 70
+        self.momentum = 0
 
         self.time_running = False
         self.count = 0.0
@@ -49,6 +50,8 @@ class Player(Entity):
             self.count += time.dt
             self.time.text = str(round(self.count))
 
+        ray = raycast(self.position, self.down, distance = 2, ignore = [self, ])
+
         y_movement = self.velocity_y * time.dt
 
         direction = (0, sign(y_movement), 0)
@@ -62,15 +65,29 @@ class Player(Entity):
             self.y += y_movement
             self.velocity_y -= self.gravity * time.dt * 25
 
-        x_movement = (self.forward[0]*held_keys[self.controls[0]] +
-                      self.left[0]*held_keys[self.controls[1]] +
-                      self.back[0]*held_keys[self.controls[2]] +
-                      self.right[0]*held_keys[self.controls[3]]) * time.dt*6 * self.SPEED
+        x_movement = (self.forward[0] * held_keys[self.controls[0]] +
+                      self.left[0] * held_keys[self.controls[1]] +
+                      self.back[0] *  held_keys[self.controls[2]] +
+                      self.right[0] * held_keys[self.controls[3]]) * time.dt * 6 * self.SPEED
 
-        z_movement = (self.forward[2]*held_keys[self.controls[0]] +
-                      self.left[2]*held_keys[self.controls[1]] +
-                      self.back[2]*held_keys[self.controls[2]] +
-                      self.right[2]*held_keys[self.controls[3]]) * time.dt*6 * self.SPEED
+        z_movement = (self.forward[2] * held_keys[self.controls[0]] +
+                      self.left[2] * held_keys[self.controls[1]] +
+                      self.back[2] * held_keys[self.controls[2]] +
+                      self.right[2] * held_keys[self.controls[3]]) * time.dt * 6 * self.SPEED
+
+        # if not ray.hit:
+        #     self.momentum += 0.01
+        #     if not held_keys[self.controls]:
+        #         z_movement = (self.forward[2] * 100 +
+        #               self.left[2] * 100 +
+        #               self.back[2] * 100 +
+        #               self.right[2] * self.momentum) * time.dt * self.momentum
+
+        #         x_movement = (self.forward[0] * 100 +
+        #               self.left[0] * 100 +
+        #               self.back[0] * 100 +
+        #               self.right[0] * self.momentum) * time.dt * self.momentum
+        #         pass
 
         if x_movement != 0:
             direction = (sign(x_movement), 0, 0)
@@ -88,7 +105,7 @@ class Player(Entity):
                     self.x += x_movement
                     HeightRay = raycast(origin=self.world_position+(sign(x_movement)*self.scale_x/2, -self.scale_y/2, 0),
                                         direction=(0,1,0), ignore=[self, ])
-                    if HeightRay.hit :
+                    if HeightRay.hit:
                         self.y += HeightRay.distance
 
         if z_movement != 0:
