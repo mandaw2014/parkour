@@ -48,7 +48,7 @@ class Player(Entity):
         if self.time_running:
             self.time.enable()
             self.count += time.dt
-            self.time.text = str(round(self.count))
+            self.time.text = str(round(self.count, 1))
 
         ray = raycast(self.position, self.down, distance = 2, ignore = [self, ])
 
