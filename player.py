@@ -92,7 +92,7 @@ class Player(Entity):
         if x_movement != 0:
             direction = (sign(x_movement), 0, 0)
             xRay = boxcast(origin=self.world_position, direction=direction,
-                           distance=self.scale_x/2+abs(x_movement), ignore=[self, ],thickness = (1,1))
+                           distance=self.scale_x/2+abs(x_movement), ignore=[self, ])
 
             if not xRay.hit:
                 self.x += x_movement
@@ -111,7 +111,7 @@ class Player(Entity):
         if z_movement != 0:
             direction = (0, 0, sign(z_movement))
             zRay = boxcast(origin=self.world_position, direction=direction,
-                           distance=self.scale_z/2+abs(z_movement), ignore=[self, ],thickness = (1,1))
+                           distance=self.scale_z/2+abs(z_movement), ignore=[self, ])
 
             if not zRay.hit:
                 self.z += z_movement
