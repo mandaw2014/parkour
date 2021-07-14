@@ -7,6 +7,7 @@ from Levels.level02 import Level02
 from Levels.level03 import Level03
 
 from Levels.level04 import Level04
+from Levels.level05 import Level05
 
 from main_menu import MainMenu
 from pause_menu import PauseMenu
@@ -31,7 +32,7 @@ player = Player("cube", (0, 10, 0), "box", controls="wasd")
 player.SPEED = normalSpeed
 player.jump_height = normalJump
 player.disable()
-player.position = (888, 10, 18)
+player.position = (888, 12, 18)
 player.rotation = (0, -142, 0)
 
 mouse.locked = False
@@ -57,6 +58,9 @@ level03.player = player
 level04 = Level04()
 level04.player = player
 
+level05 = Level05()
+level05.player = player
+
 def reset_player():
     player.position = (0, 3, 0)
     player.SPEED = normalSpeed
@@ -74,7 +78,7 @@ def input(key):
         p.player = player
 
 def update():
-    ray = raycast(player.position, player.down, distance = 2, ignore = [player, ])
+    ray = raycast(player.position, player.forward, distance = 2, ignore = [player, ])
 
     if ray.entity == level01.finishBlock_1:
         player.position = (811, 14, 108)
@@ -102,6 +106,15 @@ def update():
 
         level03.disable()
         level04.enable()
+
+    if ray.entity == level04.finishBlock_4:
+        player.position = (-1, -5, 34)
+        player.rotation = (0, -180, 0)
+        player.SPEED = normalSpeed
+        player.jump_height = normalJump
+
+        level04.disable()
+        level05.enable()
 
     print(round(player.position, 0), round(player.rotation, 0))
 
