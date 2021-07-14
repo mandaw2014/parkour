@@ -2,10 +2,10 @@ from ursina import *
 
 # Normal Block Class
 class NormalBlock(Entity):
-    def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0)):
+    def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0), scale = (5, 0.8, 5)):
         super().__init__(
             model = "cube",
-            scale = Vec3(5, 0.8, 5),
+            scale = scale,
             color = "#AFFF3C",
             collider = "box",
             texture = "white_cube",
@@ -51,42 +51,6 @@ class SlowBlock(Entity):
             position = position,
             rotation = rotation
         )
-
-class WeirdBlock(Entity):
-    def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0)):
-        super().__init__(
-            model = "cube",
-            scale = Vec3(5, 0.5, 15),
-            color = "#7116FE",
-            collider = "box",
-            texture = "white_cube",
-            position = position,
-            rotation = rotation
-        )
-
-class Wall(Entity):
-    def __init__(self, position = (0, 0, 0), rotation = (0, 0, 90)):
-        super().__init__(
-            model = "cube",
-            scale = (5, 4, 1),
-            color = "#AFFF3C",
-            collider = "box",
-            texture = "white_cube",
-            position = position,
-            rotation = rotation,
-        )
-
-class MovingBlock(Entity):
-    def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0)):
-        super().__init__(
-            model = "cube",
-            scale = Vec3(5, 0.8, 5),
-            color = "#2D49FB",
-            collider = "box",
-            texture = "white_cube",
-            position = position,
-            rotation = rotation
-        )
     
 class FakeBlock(Entity):
     def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0)):
@@ -94,19 +58,6 @@ class FakeBlock(Entity):
             model = "cube",
             scale = Vec3(5, 0.8, 5),
             color = "#25B701",
-            texture = "white_cube",
-            position = position,
-            rotation = rotation
-        )
-
-class StartBlock(Entity):
-    def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0)):
-        super().__init__(
-            model = "cube",
-            scale_x = 10,
-            scale_z = 10,
-            color = "#CACACA",
-            collider = "box",
             texture = "white_cube",
             position = position,
             rotation = rotation
