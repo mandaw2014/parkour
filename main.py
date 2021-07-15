@@ -37,15 +37,6 @@ player.rotation = (0, -142, 0)
 
 mouse.locked = False
 
-m = MainMenu()
-m.player = player
-
-sky = Sky(texture = "./assets/sky")
-
-# Lighting
-light = PointLight(parent = camera, position = (0, 10, -1.5), color = color.white)
-AmbientLight(color = color.rgba(100, 100, 100, 0.1))
-
 level01 = Level01()
 level01.player = player
 
@@ -60,6 +51,20 @@ level04.player = player
 
 level05 = Level05()
 level05.player = player
+
+m = MainMenu()
+m.player = player
+m.level01 = level01
+m.level02 = level02
+m.level03 = level03
+m.level04 = level04
+m.level05 = level05
+
+sky = Sky(texture = "./assets/sky")
+
+# Lighting
+light = PointLight(parent = camera, position = (0, 10, -1.5), color = color.white)
+AmbientLight(color = color.rgba(100, 100, 100, 0.1))
 
 def reset_player():
     player.position = (0, 3, 0)
@@ -85,6 +90,7 @@ def update():
         player.rotation = (0, -267, 0)
         player.SPEED = normalSpeed
         player.jump_height = normalJump
+        player.count = 0.0
 
         level01.disable()
         level02.enable()
@@ -94,6 +100,7 @@ def update():
         player.rotation = (0, 181, 0)
         player.SPEED = normalSpeed
         player.jump_height = normalJump
+        player.count = 0.0
 
         level02.disable()
         level03.enable()
@@ -103,6 +110,7 @@ def update():
         player.rotation = (0, -90, 0)
         player.SPEED = normalSpeed
         player.jump_height = normalJump
+        player.count = 0.0
 
         level03.disable()
         level04.enable()
@@ -112,6 +120,7 @@ def update():
         player.rotation = (0, -180, 0)
         player.SPEED = normalSpeed
         player.jump_height = normalJump
+        player.count = 0.0
 
         level04.disable()
         level05.enable()
