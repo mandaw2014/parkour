@@ -90,42 +90,75 @@ class Player(Entity):
         #         pass
 
         if x_movement != 0:
-            direction = (sign(x_movement), 0, 0)
+            direction = (1, 0, 0)
+
+            if x_movement < 0:
+                direction = (-1, 0, 0)
+
             xRay = boxcast(origin=self.world_position, direction=direction,
-                           distance=self.scale_x/2+abs(x_movement), ignore=[self, ])
+                            distance=self.scale_x / 2 + abs(x_movement), ignore=[self, ])
+            move = True
 
-            if not xRay.hit:
+            if xRay.hit:
+                move = False
+            if move:
                 self.x += x_movement
+            
             else:
-                TopXRay = raycast(origin=self.world_position-(0, self.scale_y/2-.1, 0),
-                                  direction=direction,distance = self.scale_x/2+math.tan(math.radians(self.slope))*.1, 
-                                  ignore=[self, ])
+                BottomXRay = raycast(origin = self.world_position + (self.scale_x / 2 * direction[0], -self.scale_y / 2, 0), direction = direction,
+                                        distance = abs(x_movement), ignore = [self, ])
+                if BottomXRay.hit:
+                    TopXRay = raycast(origin = self.world_position + (self.scale_x / 2 * direction[0], -self.scale_y / 2 + 0.1, 0), distance = max(
+                        x_movement, self.scale_x), direction = direction, ignore = [self, ]
+                    )
 
-                if not TopXRay.hit:
-                    self.x += x_movement
-                    HeightRay = raycast(origin=self.world_position+(sign(x_movement)*self.scale_x/2, -self.scale_y/2, 0),
-                                        direction=(0,1,0), ignore=[self, ])
-                    if HeightRay.hit:
-                        self.y += HeightRay.distance
+                    if TopXRay.hit:
+                        if TopXRay.distance - BottomXRay.distance + 0.00001 >= 0.1 / math.tan(math.radians(self.slope)):
+                            self.x += x_movement
+                            HeightRay = raycast(origin = self.world_position + (self.scale_x / 2 * direction[0], self.scale_y / 2, 0), direction = (
+                                0, -1, 0), distance = self.scale_y, ignore = [self, ])
+                            if HeightRay.hit:
+                                self.y += round(self.scale_y - HeightRay.distance + 0.000005, 5)
+                    else:
+                        self.x += x_movement
+                        HeightRay = raycast(origin = self.world_position+(self.scale_x / 2 * direction[0], self.scale_y / 2, 0), direction = (0, -1, 0), distance = self.scale_y, ignore = [self, ])
+                        
+                        if HeightRay.hit:
+                            self.y += round(self.scale_y - HeightRay.distance + 0.000005, 5)
 
         if z_movement != 0:
-            direction = (0, 0, sign(z_movement))
-            zRay = boxcast(origin=self.world_position, direction=direction,
-                           distance=self.scale_z/2+abs(z_movement), ignore=[self, ])
+            direction = (0, 0, 1)
+            if z_movement < 0:
+                direction = (0, 0, -1)
 
-            if not zRay.hit:
+            zRay = boxcast(origin = self.world_position, direction = direction, distance = self.scale_z / 2 + abs(z_movement), ignore = [self, ])
+            
+            move = True
+
+            if zRay.hit:
+                move = False
+            if move:
                 self.z += z_movement
             else:
-                TopZRay = raycast(origin=self.world_position-(0, self.scale_y/2-.1, 0),
-                                  direction=direction,distance = self.scale_z/2+math.tan(math.radians(self.slope))*.1, 
-                                  ignore=[self, ])
+                BottomZRay = raycast(origin = self.world_position + (0, -self.scale_y / 2, self.scale_z / 2 * direction[2]), direction = direction, distance = abs(z_movement), ignore = [self, ])
+                
+                if BottomZRay.hit:
+                    TopZRay = raycast(origin = self.world_position + (0, -self.scale_y / 2 + 0.1, self.scale_z / 2 * direction[2]), distance = max(z_movement, self.scale_z), direction = direction, ignore = [self, ])
+                    
+                    if TopZRay.hit:
+                        if TopZRay.distance - BottomZRay.distance + 0.00001 >= 0.1 / math.tan(math.radians(self.slope)):
+                            self.z += z_movement
 
-                if not TopZRay.hit:
-                    self.z += z_movement
-                    HeightRay = raycast(origin=self.world_position+(0, -self.scale_y/2, sign(z_movement)*self.scale_z/2),
-                                     direction=(0,1,0), ignore=[self, ])
-                    if HeightRay.hit :
-                        self.y += HeightRay.distance
+                            HeightRay = raycast(origin = self.world_position + (0, self.scale_y / 2, self.scale_z / 2 * direction[2]), direction = (0, -1, 0), distance = self.scale_y, ignore = [self, ])
+                            
+                            if HeightRay.hit:
+                                self.y += round(self.scale_y - HeightRay.distance + 0.000005, 5)
+                    else:
+                        self.z += z_movement
+                        HeightRay = raycast(origin = self.world_position + (0, self.scale_y / 2, self.scale_z / 2 * direction[2]), direction = (0, -1, 0), distance = self.scale_y, ignore = [self, ])
+                        
+                        if HeightRay.hit:
+                            self.y += round(self.scale_y - HeightRay.distance + 0.000005, 5)
 
 
         camera.rotation_x -= mouse.velocity[1] * self.sensibility
@@ -133,6 +166,6 @@ class Player(Entity):
         camera.rotation_x = min(max(-80, camera.rotation_x), 80)
 
     def input(self, key):
-        if key == 'space':
+        if key == "space":
             if self.jump_count < self.MAXJUMP:
                 self.jump()
