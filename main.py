@@ -8,6 +8,7 @@ from Levels.level03 import Level03
 
 from Levels.level04 import Level04
 from Levels.level05 import Level05
+from Levels.level06 import Level06
 
 from main_menu import MainMenu
 from pause_menu import PauseMenu
@@ -52,6 +53,9 @@ level04.player = player
 level05 = Level05()
 level05.player = player
 
+level06 = Level06()
+level06.player = player
+
 m = MainMenu()
 m.player = player
 m.level01 = level01
@@ -59,6 +63,7 @@ m.level02 = level02
 m.level03 = level03
 m.level04 = level04
 m.level05 = level05
+m.level06 = level06
 
 sky = Sky(texture = "./assets/sky")
 
@@ -81,6 +86,12 @@ def input(key):
         
         p = PauseMenu()
         p.player = player
+        p.level01 = level01
+        p.level02 = level02
+        p.level03 = level03
+        p.level04 = level04
+        p.level05 = level05
+        p.level06 = level06
 
 def update():
     ray = raycast(player.position, player.forward, distance = 2, ignore = [player, ])
@@ -124,6 +135,16 @@ def update():
 
         level04.disable()
         level05.enable()
+
+    if ray.entity == level05.finishBlock_5:
+        player.position = (130, -120, 0)
+        player.rotation = (0, -90, 0)
+        player.SPEED = normalSpeed
+        player.jump_height = normalJump
+        player.count = 0.0
+
+        level05.disable()
+        level06.enable()
 
     print(round(player.position, 0), round(player.rotation, 0))
 
