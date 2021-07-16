@@ -8,13 +8,38 @@ class PauseMenu(Entity):
         self.player = None
         self.main_menu = None
 
+        self.level01 = None
+        self.level02 = None
+        self.level03 = None
+        self.level04 = None
+        self.level05 = None
+        self.level06 = None
+
         def reset():
             self.pause_menu.disable()
-            self.player.position = (0, 5, 0)
             self.player.enable()
             mouse.locked = True
             self.player.time.enable()
             self.player.time_running = True
+
+            if self.level01.is_enabled == True:
+                self.player.position = (888, 12, 18)
+                self.player.rotation = (0, -142, 0)
+            if self.level02.is_enabled == True:
+                self.player.position = (811, 14, 108)
+                self.player.rotation = (0, -267, 0)
+            if self.level03.is_enabled == True:
+                self.player.position = (809, 4, 106)
+                self.player.rotation = (0, 181, 0)
+            if self.level04.is_enabled == True:
+                self.player.position = (5, 10, -150)
+                self.player.rotation = (0, -90, 0)
+            if self.level05.is_enabled == True:
+                self.player.position = (-1, -5, 34)
+                self.player.rotation = (0, -180, 0)
+            if self.level06.is_enabled == True:
+                self.player.position = (130, -120, 0)
+                self.player.rotation = (0, -90, 0)
 
         def resume():
             self.player.enable()
