@@ -4,7 +4,7 @@ import math
 sign = lambda x: -1 if x < 0 else (1 if x > 0 else 0)
 
 class Player(Entity):
-    def __init__(self, model, position, collider, scale = (1, 1, 1), SPEED = 3, velocity = (0, 0, 0), MAXJUMP = 1, gravity = 1, controls = "wasd", **kwargs):
+    def __init__(self, model, position, collider, scale = (1, 1, 1), SPEED = 2, MAXSPEED = 3, velocity = (0, 0, 0), MAXJUMP = 1, gravity = 1, controls = "wasd", **kwargs):
         super().__init__(
             model = "cube", 
             position = position,
@@ -33,7 +33,7 @@ class Player(Entity):
         self.count = 0.0
         self.time = Text(text = str(round(self.count)), origin = (0, 0), size = 0.05, position = Vec2(-0.73, 0.44))
         self.time.disable()
-
+        
         for key, value in kwargs.items():
             try:
                 setattr(self, key, value)
@@ -74,20 +74,6 @@ class Player(Entity):
                       self.left[2] * held_keys[self.controls[1]] +
                       self.back[2] * held_keys[self.controls[2]] +
                       self.right[2] * held_keys[self.controls[3]]) * time.dt * 6 * self.SPEED
-
-        # if not ray.hit:
-        #     self.momentum += 0.01
-        #     if not held_keys[self.controls]:
-        #         z_movement = (self.forward[2] * 100 +
-        #               self.left[2] * 100 +
-        #               self.back[2] * 100 +
-        #               self.right[2] * self.momentum) * time.dt * self.momentum
-
-        #         x_movement = (self.forward[0] * 100 +
-        #               self.left[0] * 100 +
-        #               self.back[0] * 100 +
-        #               self.right[0] * self.momentum) * time.dt * self.momentum
-        #         pass
 
         if x_movement != 0:
             direction = (1, 0, 0)
