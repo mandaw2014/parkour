@@ -14,6 +14,9 @@ class PauseMenu(Entity):
         self.level04 = None
         self.level05 = None
         self.level06 = None
+        self.level07 = None
+        self.level08 = None
+        self.level09 = None
 
         def reset():
             self.pause_menu.disable()
@@ -40,6 +43,15 @@ class PauseMenu(Entity):
             if self.level06.is_enabled == True:
                 self.player.position = (130, -120, 0)
                 self.player.rotation = (0, -90, 0)
+            if self.level07.is_enabled == True:
+                self.player.position = (0, 10, 0)
+                self.player.rotation = (0, 0, 0)
+            if self.level09.is_enabled == True:
+                self.player.position = (0, 10, 0)
+                self.player.rotation = (0, 0, 0)
+            if self.level09.is_enabled == True:
+                self.player.position = (0, 10, 0)
+                self.player.rotation = (0, 0, 0)
 
         def resume():
             self.player.enable()
