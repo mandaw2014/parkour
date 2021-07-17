@@ -1,4 +1,5 @@
 from ursina import *
+from ursina import curve
 
 # Normal Block Class
 class NormalBlock(Entity):
@@ -39,30 +40,6 @@ class SpeedBlock(Entity):
             rotation = rotation
         )
 
-# Slow Block Class
-class SlowBlock(Entity):
-    def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0)):
-        super().__init__(
-            model = "cube",
-            scale = Vec3(5, 0.5, 15),
-            color = "#FF453F",
-            collider = "box",
-            texture = "white_cube",
-            position = position,
-            rotation = rotation
-        )
-    
-class FakeBlock(Entity):
-    def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0)):
-        super().__init__(
-            model = "cube",
-            scale = Vec3(5, 0.8, 5),
-            color = "#25B701",
-            texture = "white_cube",
-            position = position,
-            rotation = rotation
-        )
-
 class EndBlock(Entity):
     def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0)):
         super().__init__(
@@ -73,4 +50,38 @@ class EndBlock(Entity):
             texture = "white_cube",
             position = position,
             rotation = rotation
+        )
+
+# Sky Normal Block Class
+class SkyNormalBlock(Entity):
+    def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0), scale = (1, 1, 1)):
+        super().__init__(
+            model = "normalBlock",
+            collider = "mesh",
+            texture = "normalBlock",
+            position = position,
+            rotation = rotation,
+            scale = scale
+        )
+
+# Sky Jump Block Class
+class SkyJumpBlock(Entity):
+    def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0)):
+        super().__init__(
+            model = "normalBlock",
+            collider = "mesh",
+            texture = "jumpBlock",
+            position = position,
+            rotation = rotation,
+        )
+
+# Sky Speed Block Class
+class SkySpeedBlock(Entity):
+    def __init__(self, position = (0, 0, 0), rotation = (0, 0, 0)):
+        super().__init__(
+            model = "speedBlock",
+            collider = "mesh",
+            texture = "speedBlock",
+            position = position,
+            rotation = rotation,
         )
